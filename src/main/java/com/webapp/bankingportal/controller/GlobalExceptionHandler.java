@@ -22,6 +22,7 @@ import com.webapp.bankingportal.exception.OtpRetryLimitExceededException;
 import com.webapp.bankingportal.exception.PasswordResetException;
 import com.webapp.bankingportal.exception.UnauthorizedException;
 import com.webapp.bankingportal.exception.UserInvalidException;
+import org.springframework.data.redis.RedisConnectionFailureException;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -114,6 +115,11 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UserInvalidException.class)
     public ResponseEntity<String> handleUserInvalidException(UserInvalidException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(RedisConnectionFailureException.class)
+    public ResponseEntity<String> handleRedisConnectionFailure(RedisConnectionFailureException ex) {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("{\"message\": \"Cache service unavailable. Please try again.\"}");
     }
 
     @ExceptionHandler(Exception.class)
