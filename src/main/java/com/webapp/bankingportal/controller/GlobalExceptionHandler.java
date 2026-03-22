@@ -23,6 +23,8 @@ import com.webapp.bankingportal.exception.PasswordResetException;
 import com.webapp.bankingportal.exception.UnauthorizedException;
 import com.webapp.bankingportal.exception.UserInvalidException;
 import org.springframework.data.redis.RedisConnectionFailureException;
+import java.util.Map;
+import com.webapp.bankingportal.util.ApiMessages;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
@@ -118,8 +120,8 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(RedisConnectionFailureException.class)
-    public ResponseEntity<String> handleRedisConnectionFailure(RedisConnectionFailureException ex) {
-        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body("{\"message\": \"Cache service unavailable. Please try again.\"}");
+    public ResponseEntity<Map<String, String>> handleRedisConnectionFailure(RedisConnectionFailureException ex) {
+        return ResponseEntity.status(HttpStatus.SERVICE_UNAVAILABLE).body(Map.of("message", ApiMessages.REDIS_CONNECTION_FAILURE.getMessage()));
     }
 
     @ExceptionHandler(Exception.class)
