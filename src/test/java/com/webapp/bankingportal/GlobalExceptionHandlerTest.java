@@ -1,5 +1,7 @@
 package com.webapp.bankingportal;
 
+import lombok.val;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -19,11 +21,9 @@ public class GlobalExceptionHandlerTest extends BaseTest {
 
     @Test
     void whenRedisConnectionFails_shouldReturn503() throws Exception {
-        // create a real user and login to get a valid token
         val userDetails = createAndLoginUser();
         val token = userDetails.get("token");
 
-        // mock AccountService to throw RedisConnectionFailureException
         Mockito.when(accountService.isPinCreated(Mockito.anyString()))
                .thenThrow(new RedisConnectionFailureException("Redis down"));
 
