@@ -66,8 +66,8 @@ public enum ApiMessages {
     USER_PHONE_NUMBER_EMPTY_ERROR("Phone number cannot be empty"),
     USER_PHONE_NUMBER_INVALID_ERROR("Invalid phone number: %s for country code: %s"),
     USER_REGISTRATION_SUCCESS("User registered successfully"),
-    USER_UPDATE_SUCCESS("User updated successfully");
-
+    USER_UPDATE_SUCCESS("User updated successfully"),
+    REDIS_CONNECTION_FAILURE("Cache service unavailable. Please try again.");
     @Getter
     private final String message;
 
